@@ -5,75 +5,113 @@
 <title>Подбор одежды для собаки</title>
 
 <style>
+
 body{
-font-family: Arial;
-background:#f5f5f5;
-text-align:center;
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#ff9966,#ff5e62);
+margin:0;
 padding:40px;
+text-align:center;
 }
 
-.box{
+.container{
 background:white;
-padding:30px;
-border-radius:10px;
-max-width:400px;
+padding:40px;
+border-radius:15px;
+max-width:450px;
 margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-input{
+h1{
+margin-bottom:10px;
+}
+
+p{
+color:#555;
+}
+
+input,select{
 width:90%;
-padding:10px;
-margin:10px;
+padding:12px;
+margin:10px 0;
 font-size:16px;
+border-radius:8px;
+border:1px solid #ddd;
 }
 
 button{
-padding:12px 25px;
-font-size:16px;
-background:#ff7a00;
+background:#ff5e62;
 color:white;
 border:none;
-border-radius:6px;
+padding:14px 30px;
+font-size:16px;
+border-radius:8px;
 cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#ff3b3f;
 }
 
 .result{
 margin-top:20px;
-font-size:20px;
+font-size:22px;
 font-weight:bold;
+color:#333;
 }
 
-a.button{
+.tip{
+margin-top:10px;
+color:#666;
+font-size:14px;
+}
+
+.shop{
 display:inline-block;
-margin-top:20px;
-padding:12px 25px;
+margin-top:25px;
 background:#2ecc71;
 color:white;
+padding:14px 25px;
+border-radius:8px;
 text-decoration:none;
-border-radius:6px;
+font-size:16px;
 }
+
+.shop:hover{
+background:#27ae60;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-<h2>Подбор размера одежды для собаки</h2>
+<h1>🐶 Подбор одежды для собаки</h1>
 
-<p>Введите параметры собаки</p>
+<p>Введите параметры питомца</p>
 
-<input id="chest" placeholder="Обхват груди (см)">
-<input id="back" placeholder="Длина спины (см)">
+<select id="breed">
+<option>Выберите породу</option>
+<option>Чихуахуа</option>
+<option>Йоркширский терьер</option>
+<option>Шпиц</option>
+<option>Французский бульдог</option>
+<option>Другая</option>
+</select>
 
-<br>
+<input id="chest" type="number" placeholder="Обхват груди (см)">
+<input id="back" type="number" placeholder="Длина спины (см)">
 
 <button onclick="calc()">Подобрать размер</button>
 
 <div class="result" id="result"></div>
+<div class="tip" id="tip"></div>
 
-<a class="button" href="https://www.avito.ru" target="_blank">
+<a class="shop" href="https://www.avito.ru" target="_blank">
 Посмотреть одежду
 </a>
 
@@ -84,24 +122,37 @@ border-radius:6px;
 function calc(){
 
 let chest = document.getElementById("chest").value;
+let back = document.getElementById("back").value;
 
-let size = "";
+if(!chest || !back){
+alert("Введите параметры собаки");
+return;
+}
+
+let size="";
+let tip="";
 
 if(chest <= 30){
-size = "XS";
+size="XS";
+tip="Идеально для маленьких собак";
 }
 else if(chest <= 36){
-size = "S";
+size="S";
+tip="Подходит для небольших пород";
 }
 else if(chest <= 42){
-size = "M";
+size="M";
+tip="Хорошо подойдет для средних собак";
 }
 else{
-size = "L";
+size="L";
+tip="Подходит для крупных собак";
 }
 
 document.getElementById("result").innerHTML =
 "Рекомендуемый размер: " + size;
+
+document.getElementById("tip").innerHTML = tip;
 
 }
 
