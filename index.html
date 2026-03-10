@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Подбор одежды для собаки</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f5f5f5;
+text-align:center;
+padding:40px;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:400px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+padding:12px 25px;
+font-size:16px;
+background:#ff7a00;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+a.button{
+display:inline-block;
+margin-top:20px;
+padding:12px 25px;
+background:#2ecc71;
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Подбор размера одежды для собаки</h2>
+
+<p>Введите параметры собаки</p>
+
+<input id="chest" placeholder="Обхват груди (см)">
+<input id="back" placeholder="Длина спины (см)">
+
+<br>
+
+<button onclick="calc()">Подобрать размер</button>
+
+<div class="result" id="result"></div>
+
+<a class="button" href="https://www.avito.ru" target="_blank">
+Посмотреть одежду
+</a>
+
+</div>
+
+<script>
+
+function calc(){
+
+let chest = document.getElementById("chest").value;
+
+let size = "";
+
+if(chest <= 30){
+size = "XS";
+}
+else if(chest <= 36){
+size = "S";
+}
+else if(chest <= 42){
+size = "M";
+}
+else{
+size = "L";
+}
+
+document.getElementById("result").innerHTML =
+"Рекомендуемый размер: " + size;
+
+}
+
+</script>
+
+</body>
+</html>
