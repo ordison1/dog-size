@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <title>Подбор одежды для собаки</title>
+
+<!-- иконка сайта -->
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png">
 
 <style>
 
@@ -18,7 +22,7 @@ text-align:center;
 background:white;
 padding:40px;
 border-radius:15px;
-max-width:450px;
+max-width:500px;
 margin:auto;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
@@ -63,7 +67,18 @@ border-radius:8px;
 text-decoration:none;
 }
 
+img{
+max-width:100%;
+border-radius:10px;
+margin-top:15px;
+}
+
+.measure{
+margin-top:20px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -93,9 +108,19 @@ text-decoration:none;
 <div class="result" id="result"></div>
 <div class="tip" id="tip"></div>
 
+<img id="dogImage" style="display:none">
+
 <a class="shop" href="https://www.avito.ru" target="_blank">
 Посмотреть одежду
 </a>
+
+<div class="measure">
+
+<h3>Как измерить собаку</h3>
+
+<img src="https://i.imgur.com/YQ9QZ6A.png">
+
+</div>
 
 </div>
 
@@ -106,47 +131,38 @@ function calc(){
 let chest = Number(document.getElementById("chest").value);
 let back = Number(document.getElementById("back").value);
 let neck = Number(document.getElementById("neck").value);
-let breed = document.getElementById("breed").value;
 
 if(!chest || !back || !neck){
-alert("Введите все параметры собаки");
+alert("Введите все параметры");
 return;
 }
 
 let size="";
 let tip="";
+let image="";
 
 /* XS */
 
-if(
-chest <= 30 &&
-back <= 25 &&
-neck <= 22
-){
+if(chest <= 30 && back <= 25 && neck <= 22){
 size="XS";
-tip="Подходит для маленьких собак";
+tip="Идеально для маленьких собак";
+image="https://i.imgur.com/3ZQ3Z9K.png";
 }
 
 /* S */
 
-else if(
-chest <= 36 &&
-back <= 30 &&
-neck <= 26
-){
+else if(chest <= 36 && back <= 30 && neck <= 26){
 size="S";
 tip="Подходит для небольших пород";
+image="https://i.imgur.com/V3KwfYy.png";
 }
 
 /* M */
 
-else if(
-chest <= 42 &&
-back <= 35 &&
-neck <= 30
-){
+else if(chest <= 42 && back <= 35 && neck <= 30){
 size="M";
 tip="Хорошо подойдет для средних собак";
+image="https://i.imgur.com/QF8v3Uu.png";
 }
 
 /* L */
@@ -154,14 +170,17 @@ tip="Хорошо подойдет для средних собак";
 else{
 size="L";
 tip="Подходит для крупных собак";
+image="https://i.imgur.com/5pC0J9F.png";
 }
 
-let breedText = breed ? "<br>Порода: "+breed : "";
-
 document.getElementById("result").innerHTML =
-"Рекомендуемый размер: " + size + breedText;
+"Рекомендуемый размер: " + size;
 
 document.getElementById("tip").innerHTML = tip;
+
+let dogImg = document.getElementById("dogImage");
+dogImg.src = image;
+dogImg.style.display = "block";
 
 }
 
