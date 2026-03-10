@@ -23,14 +23,6 @@ margin:auto;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-h1{
-margin-bottom:10px;
-}
-
-p{
-color:#555;
-}
-
 input,select{
 width:90%;
 padding:12px;
@@ -48,24 +40,17 @@ padding:14px 30px;
 font-size:16px;
 border-radius:8px;
 cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-background:#ff3b3f;
 }
 
 .result{
 margin-top:20px;
 font-size:22px;
 font-weight:bold;
-color:#333;
 }
 
 .tip{
 margin-top:10px;
 color:#666;
-font-size:14px;
 }
 
 .shop{
@@ -76,11 +61,6 @@ color:white;
 padding:14px 25px;
 border-radius:8px;
 text-decoration:none;
-font-size:16px;
-}
-
-.shop:hover{
-background:#27ae60;
 }
 
 </style>
@@ -95,14 +75,16 @@ background:#27ae60;
 <p>Введите параметры питомца</p>
 
 <select id="breed">
-<option>Выберите породу</option>
+<option value="">Порода (необязательно)</option>
 <option>Чихуахуа</option>
 <option>Йоркширский терьер</option>
 <option>Шпиц</option>
 <option>Французский бульдог</option>
+<option>Такса</option>
 <option>Другая</option>
 </select>
 
+<input id="neck" type="number" placeholder="Обхват шеи (см)">
 <input id="chest" type="number" placeholder="Обхват груди (см)">
 <input id="back" type="number" placeholder="Длина спины (см)">
 
@@ -121,36 +103,63 @@ background:#27ae60;
 
 function calc(){
 
-let chest = document.getElementById("chest").value;
-let back = document.getElementById("back").value;
+let chest = Number(document.getElementById("chest").value);
+let back = Number(document.getElementById("back").value);
+let neck = Number(document.getElementById("neck").value);
+let breed = document.getElementById("breed").value;
 
-if(!chest || !back){
-alert("Введите параметры собаки");
+if(!chest || !back || !neck){
+alert("Введите все параметры собаки");
 return;
 }
 
 let size="";
 let tip="";
 
-if(chest <= 30){
+/* XS */
+
+if(
+chest <= 30 &&
+back <= 25 &&
+neck <= 22
+){
 size="XS";
-tip="Идеально для маленьких собак";
+tip="Подходит для маленьких собак";
 }
-else if(chest <= 36){
+
+/* S */
+
+else if(
+chest <= 36 &&
+back <= 30 &&
+neck <= 26
+){
 size="S";
 tip="Подходит для небольших пород";
 }
-else if(chest <= 42){
+
+/* M */
+
+else if(
+chest <= 42 &&
+back <= 35 &&
+neck <= 30
+){
 size="M";
 tip="Хорошо подойдет для средних собак";
 }
+
+/* L */
+
 else{
 size="L";
 tip="Подходит для крупных собак";
 }
 
+let breedText = breed ? "<br>Порода: "+breed : "";
+
 document.getElementById("result").innerHTML =
-"Рекомендуемый размер: " + size;
+"Рекомендуемый размер: " + size + breedText;
 
 document.getElementById("tip").innerHTML = tip;
 
